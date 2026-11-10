@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#07100f" />
+  <title>Nightwatch — The Lost Ball</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css" />
+  <script type="importmap">
+    {"imports":{"three":"https://unpkg.com/three@0.169.0/build/three.module.js"}}
+  </script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand"><div class="brand-mark"><span></span><span></span><span></span><span></span></div><div><b>NIGHTWATCH</b><small>NEIGHBORHOOD SECURITY</small></div></div>
+      <div class="shift-status"><span class="live-dot"></span><span>LIVE MONITORING</span><i></i><span id="shift-clock">SHIFT 01:24 AM</span></div>
+      <button class="sound-toggle" id="sound-toggle" aria-label="Toggle sound"><span class="sound-icon">♪</span><span>SOUND <b id="sound-state">ON</b></span></button>
+    </header>
+    <main class="main-layout">
+      <section class="monitor-column">
+        <div class="monitor-heading">
+          <div><div class="eyebrow">RESIDENTIAL BLOCK 09 <span class="heading-line"></span> CAMERAS <b>04 / 04</b></div><h1>Keep your eyes open<span class="title-period">.</span></h1></div>
+          <div class="time-chip"><span class="clock-dot"></span><span id="case-clock">00:00</span><small>CASE TIME</small></div>
+        </div>
+        <div class="camera-grid" id="camera-grid">
+          <div class="feed" data-feed="0"><div class="feed-corner top-left"></div><div class="feed-top"><span class="cam-tag"><i>01</i> THE FRONT YARD</span><span class="rec"><b></b> REC</span></div><canvas class="feed-canvas" id="feed-0"></canvas><div class="feed-bottom"><span>CAM 01 <i>•</i> NORTH ENTRANCE</span><span class="feed-time">01:24:08</span></div><button class="feed-hit" aria-label="Flag activity at The Front Yard"></button></div>
+          <div class="feed" data-feed="1"><div class="feed-corner top-left"></div><div class="feed-top"><span class="cam-tag"><i>02</i> MAPLE WALK</span><span class="rec"><b></b> REC</span></div><canvas class="feed-canvas" id="feed-1"></canvas><div class="feed-bottom"><span>CAM 02 <i>•</i> EAST PATH</span><span class="feed-time">01:24:08</span></div><button class="feed-hit" aria-label="Flag activity at Maple Walk"></button></div>
+          <div class="feed" data-feed="2"><div class="feed-corner top-left"></div><div class="feed-top"><span class="cam-tag"><i>03</i> SUNROOM</span><span class="rec"><b></b> REC</span></div><canvas class="feed-canvas" id="feed-2"></canvas><div class="feed-bottom"><span>CAM 03 <i>•</i> REAR PATIO</span><span class="feed-time">01:24:08</span></div><button class="feed-hit" aria-label="Flag activity at Sunroom"></button></div>
+          <div class="feed" data-feed="3"><div class="feed-corner top-left"></div><div class="feed-top"><span class="cam-tag"><i>04</i> LOADING BAY</span><span class="rec"><b></b> REC</span></div><canvas class="feed-canvas" id="feed-3"></canvas><div class="feed-bottom"><span>CAM 04 <i>•</i> SERVICE LANE</span><span class="feed-time">01:24:08</span></div><button class="feed-hit" aria-label="Flag activity at Loading Bay"></button></div>
+          <div class="scanlines"></div>
+        </div>
+        <div class="console-bar"><div class="console-label"><span class="console-led"></span> <b>ALL SYSTEMS NOMINAL</b><span class="console-sep">/</span><span>4 SIGNALS STABLE</span></div><div class="camera-switches"><span>FEED SELECT</span><b>01</b><b>02</b><b>03</b><b>04</b></div></div>
+      </section>
+      <aside class="side-column">
+        <section class="alert-card">
+          <div class="card-head"><span class="eyebrow">TONIGHT'S CASE</span><span class="case-index">CASE <b>009</b></span></div>
+          <div class="case-icon"><span class="case-spark">✳</span><span class="case-ball"></span><span class="case-shadow"></span></div>
+          <h2>The missing<br>tennis ball</h2>
+          <p>Someone keeps sneaking into the block to steal the neighbor's ball. Catch them in the act.</p>
+          <div class="case-divider"></div>
+          <div class="clue-label"><span class="clue-icon">⌕</span><div><small>YOUR EYEWITNESS CLUE</small><b id="clue-text">Look for anything out of place.</b></div></div>
+        </section>
+        <section class="score-card">
+          <div class="score-top"><span class="eyebrow">NIGHT SHIFT SCORE</span><span class="streak" id="streak">✦ &nbsp;STREAK 0</span></div>
+          <div class="score-number" id="score">000</div>
+          <div class="score-meter"><span id="score-fill"></span></div>
+          <div class="score-footer"><span>GOOD CALLS</span><b id="good-calls">0</b><i></i><span>FALSE ALARMS</span><b id="bad-calls">0</b></div>
+        </section>
+        <section class="activity-card">
+          <div class="activity-head"><span class="eyebrow">RECENT SIGHTINGS</span><span class="history-count" id="history-count">0 / 5</span></div>
+          <div class="activity-list" id="activity-list"><div class="empty-state"><span>◌</span><p>Quiet night so far.<br>Stay sharp out there.</p></div></div>
+        </section>
+        <div class="tip-card"><span class="tip-star">✳</span><p><b>Don't blink.</b> Everyone has a reason to be here... except one.</p></div>
+      </aside>
+    </main>
+    <footer class="footer"><span>© 1998 NIGHTWATCH SYSTEMS</span><span>PROPERTY OF MAPLE STREET HOA</span><span>BUILT FOR THE LONG HAUL <b>●</b></span></footer>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="intro-overlay" id="intro-overlay">
+    <div class="intro-card"><div class="intro-kicker"><span class="live-dot"></span> NIGHT SHIFT BRIEFING</div><div class="intro-illustration"><div class="intro-cam">◉</div><div class="intro-ball"></div><div class="intro-rays">✳</div></div><h2>One of them<br>doesn't belong.</h2><p>The neighborhood is full of harmless late-night visitors. Somewhere in the mix, the ball thief is making another pass.</p><div class="intro-instructions"><span>01</span><p>Watch all four camera feeds</p><span>02</span><p>Tap the feed when you spot the thief</p></div><button class="start-button" id="start-button">START THE SHIFT <span>→</span></button><div class="intro-foot">HEADPHONES OPTIONAL · EYES ESSENTIAL</div></div>
+  </div>
+  <script type="module" src="./game.js"></script>
+</body>
+</html>
